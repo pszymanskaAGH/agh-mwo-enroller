@@ -3,6 +3,7 @@ package com.company.enroller.persistence;
 import com.company.enroller.model.Participant;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -49,20 +50,17 @@ public class ParticipantService {
         tx.commit();
     }
 
-    public void sortDesc() {
+    public void sortDesc(Collection<Participant> participants) {
         Transaction tx = connector.getSession().beginTransaction();
-        List list = getAll().stream().toList();
-        list.sort(Collections.reverseOrder());
-        Collections.sort(list);
-        connector.getSession().update(list);
+        participants.stream().toList().sort(Collections.reverseOrder());
+        connector.getSession().update(participants);
         tx.commit();
     }
 
-    public void sortAsc() {
+    public void sortAsc(Collection<Participant> participants) {
         Transaction tx = connector.getSession().beginTransaction();
-        List list = getAll().stream().toList();
-        list.sort(Collections.reverseOrder());
-        connector.getSession().update(list);
+        participants.stream().toList().sort(Collections.reverseOrder());
+        connector.getSession().update(participants);
         tx.commit();
     }
 }
