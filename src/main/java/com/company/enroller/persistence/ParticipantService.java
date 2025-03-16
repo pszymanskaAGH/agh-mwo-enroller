@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ParticipantService {
         connector = DatabaseConnector.getInstance();
     }
 
-    public List getAll() {
+    public Collection<Participant> getAll() {
         String hql = "FROM Participant";
         Query query = connector.getSession().createQuery(hql);
         return query.list();
@@ -50,20 +51,17 @@ public class ParticipantService {
 
     public void sortDesc() {
         Transaction tx = connector.getSession().beginTransaction();
-        String hql = "FROM Participant";
-        Query query = connector.getSession().createQuery(hql);
-        List list = query.list();
+        List list = getAll().stream().toList();
         list.sort(Collections.reverseOrder());
+        Collections.sort(list);
         connector.getSession().update(list);
         tx.commit();
     }
 
     public void sortAsc() {
         Transaction tx = connector.getSession().beginTransaction();
-        String hql = "FROM Participant";
-        Query query = connector.getSession().createQuery(hql);
-        List list = query.list();
-        Collections.sort(list);
+        List list = getAll().stream().toList();
+        list.sort(Collections.reverseOrder());
         connector.getSession().update(list);
         tx.commit();
     }
