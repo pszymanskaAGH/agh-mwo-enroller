@@ -15,6 +15,7 @@ public class Participant {
 	@Column
 	private String password;
 
+
 	public String getLogin() {
 		return login;
 	}

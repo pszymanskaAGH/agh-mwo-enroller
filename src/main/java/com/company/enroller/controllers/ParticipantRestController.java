@@ -75,15 +75,13 @@ public class ParticipantRestController {
 
     @RequestMapping(value = "/sortDESC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortDesc() {
-        Collection<Participant> participants = participantService.getAll();
-        participantService.sortDesc(participants.stream().toList());
+        participantService.getAllSortedByLoginDESC();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sortASC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortASC() {
-        Collection<Participant> participants = participantService.getAll();
-        participantService.sortAsc(participants.stream().toList());
+        participantService.getAllSortedByLoginAsc();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

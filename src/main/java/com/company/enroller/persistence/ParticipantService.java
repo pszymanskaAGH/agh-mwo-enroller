@@ -57,28 +57,27 @@ public class ParticipantService {
         tx.commit();
     }
 
-    public void sortDesc(List<Participant> participants) {
+    public void getAllSortedByLoginDESC() {
         Transaction tx = connector.getSession().beginTransaction();
-        List<Participant> newList = new ArrayList<>(participants);
-        newList.sort(Comparator.comparing(Participant::getLogin).reversed());
 
-        for (Participant p : newList) {
-            connector.getSession().update(p);
-        }
+        String hql = "FROM Participant ORDER BY login DESC";
+        List<Participant> participants = connector.getSession()
+                .createQuery(hql, Participant.class)
+                .getResultList();
 
         tx.commit();
     }
 
 
-    public void sortAsc(List<Participant> participants) {
+    public void getAllSortedByLoginAsc() {
         Transaction tx = connector.getSession().beginTransaction();
-        List<Participant> newList = new ArrayList<>(participants);
-        newList.sort(Comparator.comparing(Participant::getLogin));
 
-        for (Participant p : newList) {
-            connector.getSession().update(p);
-        }
+        String hql = "FROM Participant ORDER BY login ASC";
+        List<Participant> participants = connector.getSession()
+                .createQuery(hql, Participant.class)
+                .getResultList();
 
         tx.commit();
     }
+
 }
