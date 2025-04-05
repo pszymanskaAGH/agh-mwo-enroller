@@ -57,7 +57,7 @@ public class ParticipantService {
         tx.commit();
     }
 
-    public void getAllSortedByLoginDESC() {
+    public List<Participant> getAllSortedByLoginDESC() {
         Transaction tx = connector.getSession().beginTransaction();
 
         String hql = "FROM Participant ORDER BY login DESC";
@@ -66,10 +66,11 @@ public class ParticipantService {
                 .getResultList();
 
         tx.commit();
+        return participants;
     }
 
 
-    public void getAllSortedByLoginAsc() {
+    public List<Participant> getAllSortedByLoginAsc() {
         Transaction tx = connector.getSession().beginTransaction();
 
         String hql = "FROM Participant ORDER BY login ASC";
@@ -78,6 +79,7 @@ public class ParticipantService {
                 .getResultList();
 
         tx.commit();
+        return participants;
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/participants")
@@ -75,13 +76,13 @@ public class ParticipantRestController {
 
     @RequestMapping(value = "/sortDESC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortDesc() {
-        participantService.getAllSortedByLoginDESC();
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<Participant> sorted = participantService.getAllSortedByLoginDESC();
+        return new ResponseEntity<>(sorted, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sortASC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortASC() {
-        participantService.getAllSortedByLoginAsc();
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<Participant> sorted = participantService.getAllSortedByLoginAsc();
+        return new ResponseEntity<>(sorted, HttpStatus.OK);
     }
 }
