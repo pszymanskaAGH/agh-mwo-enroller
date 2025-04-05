@@ -16,12 +16,15 @@ public class ParticipantRestController {
     @Autowired
     ParticipantService participantService;
 
+
+    //ok
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getParticipants() {
         Collection<Participant> participants = participantService.getAll();
         return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
     }
 
+    //ok
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getParticipant(@PathVariable("id") String login) {
         Participant participant = participantService.findByLogin(login);
@@ -31,13 +34,9 @@ public class ParticipantRestController {
         return new ResponseEntity<>(participant, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> registerParticipant(@RequestBody Participant participant) {
-        if (participant.getLogin() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        if (participant.getPassword() == null) {
+        if (participant.getLogin() == null || participant.getPassword() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -51,6 +50,7 @@ public class ParticipantRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //ok
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") String login) {
         Participant participant = participantService.findByLogin(login);
@@ -61,6 +61,7 @@ public class ParticipantRestController {
         return new ResponseEntity<>(participant, HttpStatus.OK);
     }
 
+    //ok
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUserPass(@RequestBody Participant participant) {
         Participant copy = participantService.findByLogin(participant.getLogin());
@@ -75,14 +76,14 @@ public class ParticipantRestController {
     @RequestMapping(value = "/sortDESC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortDesc() {
         Collection<Participant> participants = participantService.getAll();
-        participantService.sortDesc(participants);
+        participantService.sortDesc(participants.stream().toList());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sortASC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortASC() {
         Collection<Participant> participants = participantService.getAll();
-        participantService.sortAsc(participants);
+        participantService.sortAsc(participants.stream().toList());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
