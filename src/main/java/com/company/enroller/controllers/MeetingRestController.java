@@ -1,7 +1,9 @@
 package com.company.enroller.controllers;
 
 import com.company.enroller.model.Meeting;
+import com.company.enroller.model.Participant;
 import com.company.enroller.persistence.MeetingService;
+import com.company.enroller.persistence.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ public class MeetingRestController {
 
     @Autowired
     MeetingService meetingService;
+
+    @Autowired
+    ParticipantService participantService;
 
     //ok
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -70,5 +75,27 @@ public class MeetingRestController {
         }
         meetingService.editMeetingViaDate(meeting, date);
         return new ResponseEntity<>(meeting, HttpStatus.OK);
+    }
+
+    //
+    @RequestMapping(value = "/addParticipant", method = RequestMethod.POST)
+    public ResponseEntity<?> addParticipantToMeeting(@RequestBody Meeting meeting, @RequestBody Participant participant) {
+        if (meeting.getId() == 0 || meeting.getDate() == null || meeting.getDescription() == null || meeting.getTitle() == null ||
+                participant.getLogin() == null || participant.getLogin().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Participant p = participantService.findByLogin(participant.getLogin());
+        Meeting m = meetingService.findById(meeting.getId());
+
+        if (p == null) {
+            return new ResponseEntity<>("Unable to add participant to meeting, because participant is null", HttpStatus.NOT_FOUND);
+        }
+        if (m == null) {
+            return new ResponseEntity<>("Unable to add participant to meeting, because meeting is null", HttpStatus.NOT_FOUND);
+        }
+
+        meetingService.addParticipantToMeeting(participant, meeting);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
