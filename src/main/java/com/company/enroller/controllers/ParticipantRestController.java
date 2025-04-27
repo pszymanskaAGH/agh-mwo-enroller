@@ -74,15 +74,38 @@ public class ParticipantRestController {
         return new ResponseEntity<>(copy, HttpStatus.OK);
     }
 
+    //ok
     @RequestMapping(value = "/sortDESC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortDesc() {
         List<Participant> sorted = participantService.getAllSortedByLoginDESC();
         return new ResponseEntity<>(sorted, HttpStatus.OK);
     }
 
+    //ok
     @RequestMapping(value = "/sortASC", method = RequestMethod.PUT)
     public ResponseEntity<?> sortASC() {
         List<Participant> sorted = participantService.getAllSortedByLoginAsc();
         return new ResponseEntity<>(sorted, HttpStatus.OK);
+    }
+
+    //ok
+    @RequestMapping(value = "/sort", method = RequestMethod.PUT)
+    public ResponseEntity<?> defaultSort() {
+        List<Participant> sorted = participantService.getAllSortedByLoginAsc();
+        return new ResponseEntity<>(sorted, HttpStatus.OK);
+    }
+
+    //ok
+    @RequestMapping(value = "/keyUser", method = RequestMethod.PUT)
+    public ResponseEntity<?> sortByLoginWhereKeyUser() {
+        List<Participant> users = participantService.getLoginWhereKeyUser();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    //ok
+    @RequestMapping(value = "/keyOg", method = RequestMethod.PUT)
+    public ResponseEntity<?> sortByLoginWhereKeyOg() {
+        List<Participant> users = participantService.getLoginWhereKeyOg();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

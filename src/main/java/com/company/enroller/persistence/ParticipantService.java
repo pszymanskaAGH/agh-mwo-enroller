@@ -82,4 +82,27 @@ public class ParticipantService {
         return participants;
     }
 
+    public List<Participant> getLoginWhereKeyUser() {
+        String hql = "FROM Participant WHERE login LIKE '%user%'";
+        Query<Participant> query = connector.getSession()
+                .createQuery(hql, Participant.class);
+
+        List<Participant> results = query.list();
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results;
+    }
+
+    public List<Participant> getLoginWhereKeyOg() {
+        String hql = "FROM Participant WHERE login LIKE '%og%'";
+        Query<Participant> query = connector.getSession()
+                .createQuery(hql, Participant.class);
+
+        List<Participant> results = query.list();
+        if (results.isEmpty()) {
+            return null;
+        }
+        return results;
+    }
 }
