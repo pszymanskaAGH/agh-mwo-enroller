@@ -1,9 +1,7 @@
 package com.company.enroller.persistence;
 
 import java.util.Collection;
-import java.util.List;
 
-import com.company.enroller.model.Participant;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
@@ -50,8 +48,8 @@ public class MeetingService {
         tx.commit();
     }
 
-    public void editMeeting(Meeting meeting) {
-        meeting.setDate("2011111");
+    public void editMeetingViaDate(Meeting meeting, String date) {
+        meeting.setDate(date);
         Transaction tx = connector.getSession().beginTransaction();
         connector.getSession().update(meeting);
         tx.commit();

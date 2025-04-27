@@ -1,7 +1,6 @@
 package com.company.enroller.controllers;
 
 import com.company.enroller.model.Meeting;
-import com.company.enroller.model.Participant;
 import com.company.enroller.persistence.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,12 +63,12 @@ public class MeetingRestController {
 
     //ok
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> editMeeting(@PathVariable("id") long id) {
+    public ResponseEntity<?> editMeetingViaDate(@PathVariable("id") long id, @RequestBody String date) {
         Meeting meeting = meetingService.findById(id);
         if (meeting == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        meetingService.editMeeting(meeting);
+        meetingService.editMeetingViaDate(meeting, date);
         return new ResponseEntity<>(meeting, HttpStatus.OK);
     }
 }

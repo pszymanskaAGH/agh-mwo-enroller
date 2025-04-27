@@ -102,8 +102,6 @@ public class ParticipantRestController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    //ok
-    @RequestMapping(value = "/keyOg", method = RequestMethod.PUT)
     public ResponseEntity<?> sortByLoginWhereKeyOg() {
         List<Participant> users = participantService.getLoginWhereKeyOg();
         return new ResponseEntity<>(users, HttpStatus.OK);
