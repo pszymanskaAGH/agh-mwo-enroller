@@ -1,5 +1,10 @@
 package com.company.enroller.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +17,7 @@ public class Participant {
 	@Id
 	private String login;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	private String password;
 
@@ -31,4 +37,5 @@ public class Participant {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }
