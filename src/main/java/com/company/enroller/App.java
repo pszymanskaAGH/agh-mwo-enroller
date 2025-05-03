@@ -13,7 +13,7 @@ public class App {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoderX() {
         return new BCryptPasswordEncoder();
     }
 }

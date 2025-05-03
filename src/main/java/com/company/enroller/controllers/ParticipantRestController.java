@@ -19,7 +19,7 @@ public class ParticipantRestController {
     ParticipantService participantService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoderX;
 
     //ok
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -50,7 +50,7 @@ public class ParticipantRestController {
                     participant.getLogin() + " already exist.", HttpStatus.CONFLICT);
         }
 
-        String hashedPassword = passwordEncoder.encode(participant.getPassword());
+        String hashedPassword = passwordEncoderX.encode(participant.getPassword());
         participant.setPassword(hashedPassword);
 
         participantService.addUser(participant);
